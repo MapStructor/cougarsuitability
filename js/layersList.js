@@ -1,4 +1,3 @@
-
 const layers = [
   {
     //ID: CHANGE THIS, 1 OF 3
@@ -8,7 +7,7 @@ const layers = [
       type: "vector",
       //URL: CHANGE THIS, 2 OF 3
       //url: "mapbox://mapny.18d146m2",
-	  url: "mapbox://mapny.6b7q1m9x",
+      url: "mapbox://mapny.6b7q1m9x",
     },
     layout: {
       visibility: document.getElementById("german_layer").checked
@@ -16,7 +15,7 @@ const layers = [
         : "none",
     },
     //"source-layer": "output",
-	"source-layer": "geacron_shps_testing-89qva4",
+    "source-layer": "geacron_shps_testing-89qva4",
     paint: {
       "fill-color": "#7b68ee",
       "fill-opacity": [
@@ -37,7 +36,7 @@ const layers = [
       type: "vector",
       //URL: CHANGE THIS, 2 OF 3
       //url: "mapbox://mapny.18d146m2",
-	  url: "mapbox://mapny.6b7q1m9x",
+      url: "mapbox://mapny.6b7q1m9x",
     },
     layout: {
       visibility: document.getElementById("german_layer").checked
@@ -45,7 +44,7 @@ const layers = [
         : "none",
     },
     //"source-layer": "output",
-	"source-layer": "geacron_shps_testing-89qva4",
+    "source-layer": "geacron_shps_testing-89qva4",
     paint: {
       "fill-color": "#7b68ee",
       "fill-opacity": [
@@ -84,7 +83,7 @@ const layers = [
       type: "vector",
       //URL: CHANGE THIS, 2 OF 3
       //url: "mapbox://mapny.18d146m2",
-	  url: "mapbox://mapny.c9zt9yge",
+      url: "mapbox://mapny.c9zt9yge",
     },
     layout: {
       visibility: document.getElementById("global_layer").checked
@@ -92,7 +91,7 @@ const layers = [
         : "visible",
     },
     //"source-layer": "output",
-	"source-layer": "geacron_mapbox",
+    "source-layer": "geacron_mapbox",
     paint: {
       "fill-color": "#e3ed58",
       "fill-opacity": [
@@ -114,7 +113,9 @@ const layers = [
       url: "mapbox://mapny.c9zt9yge",
     },
     layout: {
-      visibility: document.getElementById("global_layer").checked ? "visible" : "visible",
+      visibility: document.getElementById("global_layer").checked
+        ? "visible"
+        : "visible",
     },
     "source-layer": "geacron_mapbox",
     paint: {
@@ -122,14 +123,14 @@ const layers = [
         "match",
         ["get", "color_id2"],
         ...Array.from({ length: 400 }, (_, i) => {
-          const letters = '0123456789ABCDEF';
-          let color = '#';
+          const letters = "0123456789ABCDEF";
+          let color = "#";
           for (let j = 0; j < 6; j++) {
             color += letters[Math.floor(Math.random() * 16)];
           }
           return [i + 1, color];
         }).flat(),
-        "#000000" // Default color if no match is found
+        "#000000", // Default color if no match is found
       ],
       "fill-opacity": [
         "case",
@@ -146,7 +147,7 @@ const layers = [
     source: {
       type: "vector",
       //url: "mapbox://mapny.7l9apcrc",
-	  url: "mapbox://mapny.13m8gl2d",
+      url: "mapbox://mapny.13m8gl2d",
     },
     layout: {
       visibility: document.getElementById("global_layer_lines").checked
@@ -154,7 +155,7 @@ const layers = [
         : "visible",
     },
     //"source-layer": "1920-2010_geacron_reprojected-956e43",
-	"source-layer": "geacron_borders",
+    "source-layer": "geacron_borders",
     paint: {
       "line-color": "#FF0000",
       "line-width": 3,
@@ -202,17 +203,23 @@ const layers = [
       url: "mapbox://mapny.91p8c56l",
     },
     layout: {
-      visibility: document.getElementById("global_labels").checked ? "visible" : "visible",
+      visibility: document.getElementById("global_labels").checked
+        ? "visible"
+        : "visible",
       "text-field": "{label}",
       //"text-offset": [0, 2],
       "text-size": [
         "interpolate",
         ["linear"],
         ["zoom"],
-        2.18, 11,
-        3.18, 12,
-        5.18, 14,
-        6.18, 16
+        2.18,
+        11,
+        3.18,
+        12,
+        5.18,
+        14,
+        6.18,
+        16,
       ],
     },
     "source-layer": "geacron_labels-01fr13",
@@ -224,9 +231,12 @@ const layers = [
         "interpolate",
         ["linear"],
         ["zoom"],
-        1, 1,
-        2.18, 2,
-        6.18, 3
+        1,
+        1,
+        2.18,
+        2,
+        6.18,
+        3,
       ],
       "text-halo-width": 5,
       "text-halo-blur": 1,
@@ -237,5 +247,21 @@ const layers = [
         ],
       },
     },
+  },
+  {
+    // New raster WMS layer
+    id: "wms-test-layer",
+    type: "raster",
+    source: {
+      type: "raster",
+      tiles: [
+        "http://66.175.239.115:8080/geoserver/HSR_Raster/wms?service=WMS&version=1.1.0&request=GetMap&layers=mappingNY%3AHSR&bbox={bbox-epsg-3857}&width=768&height=481&srs=EPSG%3A3857&styles=&format=image/png&transparent=true",
+      ],
+      tileSize: 256,
+    },
+    layout: {
+      visibility: "visible",
+    },
+    paint: {},
   },
 ];
