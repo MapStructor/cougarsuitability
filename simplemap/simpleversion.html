@@ -36,8 +36,8 @@ body { margin: 0; padding: 0; }
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.css" type="text/css">
 <div id="radio-controls">
-    <label><input type="radio" name="basemap" value="satellite" checked> Satellite</label><br>
-    <label><input type="radio" name="basemap" value="satellite-streets"> Satellite with Streets</label><br>
+    <label><input type="radio" name="basemap" value="satellite-streets" checked> Satellite with Streets</label><br>
+    <label><input type="radio" name="basemap" value="satellite"> Satellite</label><br>
     <label><input type="radio" name="basemap" value="light"> Light</label><br>
 </div>
 <div id="comparison-container">
@@ -66,7 +66,7 @@ body { margin: 0; padding: 0; }
 
     const beforeMap = new mapboxgl.Map({
         container: 'before',
-        style: 'mapbox://styles/mapbox/satellite-v9',  // Default to Satellite basemap
+        style: 'mapbox://styles/mapbox/satellite-streets-v12',  // Default to Satellite with Streets basemap
         center: [-102, 38], // Longitude, Latitude
         zoom: 3.5,
         projection: 'mercator'  // Ensures the map is not displayed as a globe
@@ -74,7 +74,7 @@ body { margin: 0; padding: 0; }
 
     const afterMap = new mapboxgl.Map({
         container: 'after',
-        style: 'mapbox://styles/mapbox/satellite-v9',  // Default to Satellite basemap
+        style: 'mapbox://styles/mapbox/satellite-streets-v12',  // Default to Satellite with Streets basemap
         center: [-102, 38], // Longitude, Latitude
         zoom: 3.5,
         projection: 'mercator'  // Ensures the map is not displayed as a globe
