@@ -255,7 +255,7 @@ const layers = [
     source: {
       type: "raster",
       tiles: [
-        "http://66.175.239.115:8080/geoserver/HSR_Raster/wms?service=WMS&version=1.1.0&request=GetMap&layers=mappingNY%3AHSR&bbox={bbox-epsg-3857}&width=768&height=481&srs=EPSG%3A3857&styles=&format=image/png&transparent=true",
+        "https://66.175.239.115/geoserver/HSR_Raster/wms?service=WMS&version=1.1.0&request=GetMap&layers=mappingNY%3AHSR&bbox={bbox-epsg-3857}&width=768&height=481&srs=EPSG%3A3857&styles=&format=image/png&transparent=true",
       ],
       tileSize: 256,
     },
