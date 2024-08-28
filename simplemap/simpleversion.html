@@ -104,9 +104,6 @@
     </p>
 </div>
 
-
-
-
 <div id="comparison-container" class="map-container">
   <div id="before" class="map-container"></div>
   <div id="after" class="map-container"></div>
@@ -160,6 +157,35 @@
   // Add the WMS layer to the before map
   beforeMap.on('load', function() {
       beforeMap.addLayer(wmsLayerBefore);
+
+      // Add the very large lakes layer
+      beforeMap.addLayer({
+        id: "very_large_lakes",
+        type: "fill",
+        source: {
+          type: "vector",
+          url: "mapbox://globalwebmapper.29g66zz7",
+        },
+        "source-layer": "very_large_lakes-cwq7o1",
+        paint: {
+          "fill-color": "#284655", // Light blue color
+          "fill-opacity": 1, // Adjust opacity as needed
+        },
+      });
+
+      // Add the very large lakes lines layer, but make it invisible (no outlines)
+      beforeMap.addLayer({
+        id: "very_large_lakes_lines",
+        type: "line",
+        source: {
+          type: "vector",
+          url: "mapbox://globalwebmapper.29g66zz7",
+        },
+        "source-layer": "very_large_lakes-cwq7o1",
+        layout: {
+          visibility: "none", // No outlines
+        },
+      });
   });
 
   // Function to update map style
@@ -167,9 +193,37 @@
       beforeMap.setStyle(style);
       afterMap.setStyle(style);
 
-      // Re-add the WMS layer after changing style
+      // Re-add the WMS layer and the large lakes layers after changing style
       beforeMap.on('style.load', function() {
           beforeMap.addLayer(wmsLayerBefore);
+
+          // Re-add the very large lakes layers
+          beforeMap.addLayer({
+            id: "very_large_lakes",
+            type: "fill",
+            source: {
+              type: "vector",
+              url: "mapbox://globalwebmapper.29g66zz7",
+            },
+            "source-layer": "very_large_lakes-cwq7o1",
+            paint: {
+              "fill-color": "#284655", // Light blue color
+              "fill-opacity": 1, // Adjust opacity as needed
+            },
+          });
+
+          beforeMap.addLayer({
+            id: "very_large_lakes_lines",
+            type: "line",
+            source: {
+              type: "vector",
+              url: "mapbox://globalwebmapper.29g66zz7",
+            },
+            "source-layer": "very_large_lakes-cwq7o1",
+            layout: {
+              visibility: "none", // No outlines
+            },
+          });
       });
   }
 
