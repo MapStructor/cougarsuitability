@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Swipe between satellite and raster with layer selection</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+#radio-controls { position: absolute; top: 10px; left: 10px; z-index: 1; background: white; padding: 10px; border-radius: 5px; }
+</style>
+</head>
+<body>
+<style>
+    body {
+        overflow: hidden;
+    }
+
+    body * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+    }
+</style>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.css" type="text/css">
+<div id="radio-controls">
+    <label><input type="radio" name="basemap" value="satellite" checked> Satellite</label><br>
+    <label><input type="radio" name="basemap" value="satellite-streets"> Satellite with Streets</label><br>
+    <label><input type="radio" name="basemap" value="light"> Light</label><br>
+</div>
+<div id="comparison-container">
+    <div id="before" class="map"></div>
+    <div id="after" class="map"></div>
+</div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1Ijoibml0dHlqZWUiLCJhIjoid1RmLXpycyJ9.NFk875-Fe6hoRCkGciG8yQ';
+    
+    // Define the WMS layer for the "before" map
+    const wmsLayerBefore = {
+        id: "wms-test-layer",
+        type: "raster",
+        source: {
+            type: "raster",
+            tiles: [
+                "https://dreamy-darwin.66-175-239-115.plesk.page/geoserver/HSR_Raster/wms?service=WMS&version=1.1.0&request=GetMap&layers=mappingNY%3AHSR&bbox={bbox-epsg-3857}&width=768&height=481&srs=EPSG%3A3857&styles=&format=image/png&transparent=true",
+            ],
+            tileSize: 256,
+        },
+        layout: {
+            visibility: "visible",
+        },
+        paint: {},
+    };
+
+    const beforeMap = new mapboxgl.Map({
+        container: 'before',
+        style: 'mapbox://styles/mapbox/satellite-v9',  // Default to Satellite basemap
+        center: [-102, 38], // Longitude, Latitude
+        zoom: 3.5,
+        projection: 'mercator'  // Ensures the map is not displayed as a globe
+    });
+
+    const afterMap = new mapboxgl.Map({
+        container: 'after',
+        style: 'mapbox://styles/mapbox/satellite-v9',  // Default to Satellite basemap
+        center: [-102, 38], // Longitude, Latitude
+        zoom: 3.5,
+        projection: 'mercator'  // Ensures the map is not displayed as a globe
+    });
+
+    // Add the WMS layer to the before map
+    beforeMap.on('load', function() {
+        beforeMap.addLayer(wmsLayerBefore);
+    });
+
+    // Function to update map style
+    function updateMapStyle(style) {
+        beforeMap.setStyle(style);
+        afterMap.setStyle(style);
+
+        // Re-add the WMS layer after changing style
+        beforeMap.on('style.load', function() {
+            beforeMap.addLayer(wmsLayerBefore);
+        });
+    }
+
+    // Add event listeners to radio buttons
+    document.querySelectorAll('input[name="basemap"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            let selectedStyle;
+            switch (this.value) {
+                case 'satellite':
+                    selectedStyle = 'mapbox://styles/mapbox/satellite-v9';
+                    break;
+                case 'satellite-streets':
+                    selectedStyle = 'mapbox://styles/mapbox/satellite-streets-v12';
+                    break;
+                case 'light':
+                    selectedStyle = 'mapbox://styles/mapbox/light-v11';
+                    break;
+            }
+            updateMapStyle(selectedStyle);
+        });
+    });
+
+    // A selector or reference to HTML element
+    const container = '#comparison-container';
+
+    const map = new mapboxgl.Compare(beforeMap, afterMap, container, {
+        // Set this to enable comparing two maps by mouse movement:
+        // mousemove: true
+    });
+</script>
+
+</body>
+</html>
