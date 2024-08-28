@@ -9,17 +9,28 @@
 <style>
   body { margin: 0; padding: 0; }
   #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-  #radio-controls { position: absolute; top: 10px; left: 10px; z-index: 1; background: white; padding: 10px; border-radius: 5px; }
-  #legend {
-    background-color: white;
-    padding: 10px;
-    border-radius: 5px;
-    position: absolute;
-    bottom: 30px;
-    left: 10px;
-    z-index: 1;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  }
+  #radio-controls {
+  position: absolute;
+  bottom: 30px;  /* Moved to bottom left */
+  left: 10px;
+  z-index: 1;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#legend {
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  top: 10px;  /* Moved to top left */
+  left: 10px;
+  z-index: 1;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+
   #legend h4 {
     margin: 0 0 10px 0;
   }
@@ -93,10 +104,15 @@
 <div id="info">
     <h3>Making Way for the Cougar</h3>
     <p>
-        Over 100 years ago, the cougar was heavily hunted across the U.S., leaving breeding populations only in the West and southern Florida. Cougars have slowly been making their way back east, but they need safe corridors to reach suitable habitats. This map replicates a model detailed in a paper, showing future habitats and the best corridors between them.
+        Over 100 years ago, the cougar was heavily hunted across the U.S., leaving breeding populations only in the 
+        West and southern Florida. Cougars have slowly been making their way back east, but they need safe corridors 
+        to reach suitable habitats. This map replicates a model detailed in a paper, showing future habitats and the 
+        best corridors between them.
     </p>
     <p>
-        Currently, the habitat suitability model is visible. Swipe the vertical bar in the middle to compare the model with the satellite surface.
+        Currently, the habitat suitability model is visible. Swipe the vertical bar in the middle to compare the 
+        model with the satellite surface. Zoom in to see habitat in higher resolution. In the upper-left is the
+        legend. Under 69% is unsuitable for a cougar, and above 69-75% is suitable, depending on the model.
     </p>
     <p>
         Paper: <em>"Potential Cougar Habitats and Dispersal Corridors in Eastern North America"</em><br>
@@ -132,22 +148,30 @@
   };
 
   const beforeMap = new mapboxgl.Map({
-      container: 'before',
-      style: 'mapbox://styles/globalwebmapper/cm0dca5i2008201qr0aczd4bz',  // Use Light Satellite
-      center: [-95, 38.5], // Longitude, Latitude
-      zoom: 3.5,
-      projection: 'mercator',  // Ensures the map is not displayed as a globe
-      hash: true,  // Adds zoom level and lat/lon to URL
-  });
+    container: 'before',
+    style: 'mapbox://styles/globalwebmapper/cm0dca5i2008201qr0aczd4bz',  // Use Light Satellite
+    center: [-95, 38.5], // Longitude, Latitude
+    zoom: 3.5,
+    minZoom: 2,  // Minimum zoom level
+    maxZoom: 10, // Maximum zoom level
+    //maxBounds: [[-180, -85], [100, 85]], // Restrict panning to the Americas
+    projection: 'mercator',  // Ensures the map is not displayed as a globe
+    hash: true,  // Adds zoom level and lat/lon to URL
+});
 
-  const afterMap = new mapboxgl.Map({
-      container: 'after',
-      style: 'mapbox://styles/globalwebmapper/cm0dca5i2008201qr0aczd4bz',  // Use Light Satellite
-      center: [-95, 38.5], // Longitude, Latitude
-      zoom: 3.5,
-      projection: 'mercator',  // Ensures the map is not displayed as a globe
-      hash: true,  // Adds zoom level and lat/lon to URL
-  });
+const afterMap = new mapboxgl.Map({
+    container: 'after',
+    style: 'mapbox://styles/globalwebmapper/cm0dca5i2008201qr0aczd4bz',  // Use Light Satellite
+    center: [-95, 38.5], // Longitude, Latitude
+    zoom: 3.5,
+    minZoom: 2,  // Minimum zoom level
+    maxZoom: 10, // Maximum zoom level
+    //maxBounds: [[-180, -85], [100, 85]], // Restrict panning to the Americas
+    projection: 'mercator',  // Ensures the map is not displayed as a globe
+    hash: true,  // Adds zoom level and lat/lon to URL
+});
+
+
 
   // Add zoom controls at the bottom right
   const navControl = new mapboxgl.NavigationControl();
