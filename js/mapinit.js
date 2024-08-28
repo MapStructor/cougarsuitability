@@ -13,9 +13,9 @@ mapboxgl.accessToken =
 var beforeMap = new mapboxgl.Map({
   container: "before",
   style: "mapbox://styles/mapny/clm2yrx1y025401p93v26bhyl",
-  center: [-10,20],
+  center: [-102,38],
   hash: true,
-  zoom: 2,
+  zoom: 3.5,
   attributionControl: false,
   minZoom: 1,
   maxZoom: 7
@@ -24,7 +24,7 @@ var beforeMap = new mapboxgl.Map({
 var afterMap = new mapboxgl.Map({
   container: "after",
   style: "mapbox://styles/mapny/clm2yu5fg022801phfh479c8x",
-  center: [-10,20],
+  center: [-102,38],
   hash: true,
   attributionControl: false,
   minZoom: 1,

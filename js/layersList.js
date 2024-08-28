@@ -88,7 +88,7 @@ const layers = [
     layout: {
       visibility: document.getElementById("global_layer").checked
         ? "visible"
-        : "visible",
+        : "none",
     },
     //"source-layer": "output",
     "source-layer": "geacron_mapbox",
@@ -115,7 +115,7 @@ const layers = [
     layout: {
       visibility: document.getElementById("global_layer").checked
         ? "visible"
-        : "visible",
+        : "none",
     },
     "source-layer": "geacron_mapbox",
     paint: {
@@ -152,7 +152,7 @@ const layers = [
     layout: {
       visibility: document.getElementById("global_layer_lines").checked
         ? "visible"
-        : "visible",
+        : "none",
     },
     //"source-layer": "1920-2010_geacron_reprojected-956e43",
     "source-layer": "geacron_borders",
@@ -205,7 +205,7 @@ const layers = [
     layout: {
       visibility: document.getElementById("global_labels").checked
         ? "visible"
-        : "visible",
+        : "none",
       "text-field": "{label}",
       //"text-offset": [0, 2],
       "text-size": [
@@ -255,7 +255,8 @@ const layers = [
     source: {
       type: "raster",
       tiles: [
-        "https://66.175.239.115/geoserver/HSR_Raster/wms?service=WMS&version=1.1.0&request=GetMap&layers=mappingNY%3AHSR&bbox={bbox-epsg-3857}&width=768&height=481&srs=EPSG%3A3857&styles=&format=image/png&transparent=true",
+        //"https://66.175.239.115/geoserver/HSR_Raster/wms?service=WMS&version=1.1.0&request=GetMap&layers=mappingNY%3AHSR&bbox={bbox-epsg-3857}&width=768&height=481&srs=EPSG%3A3857&styles=&format=image/png&transparent=true",
+        "https://dreamy-darwin.66-175-239-115.plesk.page/geoserver/HSR_Raster/wms?service=WMS&version=1.1.0&request=GetMap&layers=mappingNY%3AHSR&bbox={bbox-epsg-3857}&width=768&height=481&srs=EPSG%3A3857&styles=&format=image/png&transparent=true",
       ],
       tileSize: 256,
     },
